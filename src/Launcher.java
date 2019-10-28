@@ -30,8 +30,8 @@ public class Launcher {
     private Player player;
 
     public Launcher() {
-        //imageLabel.setIcon(new ImageIcon("assets/cardpicture.png"));
-        imageLabel.setIcon(new ImageIcon(getClass().getResource("assets/cardpicture.png")));//在打包为jar时也能获取包里面的资源
+        imageLabel.setIcon(new ImageIcon("assets/cardpicture.png"));
+        //imageLabel.setIcon(new ImageIcon(getClass().getResource("assets/cardpicture.png")));//在打包为jar时也能获取包里面的资源
         createRoomButton.addActionListener(e -> ((CardLayout) rootPanel.getLayout()).show(rootPanel, "Card2"));
         returnButton.addActionListener(e -> ((CardLayout) rootPanel.getLayout()).show(rootPanel, "Card1"));
         enterRoomButton.addActionListener(e -> ((CardLayout) rootPanel.getLayout()).show(rootPanel, "Card3"));
@@ -48,7 +48,9 @@ public class Launcher {
         String name;
         while (true) {  //通过弹窗获取玩家名称
             name = JOptionPane.showInputDialog(frame.getContentPane(), "输入玩家名称", "创建玩家", JOptionPane.PLAIN_MESSAGE);
-            if (name == null || name.isEmpty()) {
+            if (name == null)
+                System.exit(1);
+            if (name.isEmpty()) {
                 JOptionPane.showMessageDialog(frame.getContentPane(), "名称不能为空！", "提醒", JOptionPane.WARNING_MESSAGE);
             }else break;
         }
