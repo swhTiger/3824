@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Launcher">
+  <grid id="27dc6" binding="rootPanel" layout-manager="CardLayout" hgap="0" vgap="0">
+    <constraints>
+      <xy x="20" y="20" width="606" height="289"/>
+    </constraints>
+    <properties>
+      <font/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <grid id="acc31" binding="choosePanel" layout-manager="GridBagLayout">
+        <constraints>
+          <card name="Card1"/>
+        </constraints>
+        <properties>
+          <font/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="82976" class="javax.swing.JButton" binding="enterRoomButton">
+            <constraints>
+              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag top="10" left="10" bottom="10" right="10" weightx="0.0" weighty="0.0" ipadx="10" ipady="10"/>
+            </constraints>
+            <properties>
+              <font size="14"/>
+              <text value="加入房间"/>
+            </properties>
+          </component>
+          <component id="25e83" class="javax.swing.JButton" binding="createRoomButton">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag top="100" left="10" bottom="10" right="10" weightx="0.0" weighty="0.0" ipadx="10" ipady="10"/>
+            </constraints>
+            <properties>
+              <font size="14"/>
+              <text value="创建房间"/>
+            </properties>
+          </component>
+          <component id="2cc3c" class="javax.swing.JLabel" binding="imageLabel">
+            <constraints>
+              <grid row="0" column="0" row-span="2" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="1.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <horizontalAlignment value="0"/>
+              <horizontalTextPosition value="0"/>
+              <text value=""/>
+              <verticalAlignment value="0"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="cd7a7" binding="createPanel" layout-manager="GridBagLayout">
+        <constraints>
+          <card name="Card2"/>
+        </constraints>
+        <properties>
+          <font name="Consolas" size="18"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="4c93a" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag top="0" left="10" bottom="0" right="0" weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <font size="14"/>
+              <horizontalAlignment value="4"/>
+              <text value="玩家数："/>
+            </properties>
+          </component>
+          <component id="2dfdc" class="javax.swing.JTextField" binding="textField1" default-binding="true">
+            <constraints>
+              <grid row="1" column="2" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+              <gridbag top="20" left="0" bottom="10" right="0" weightx="0.3" weighty="0.0" ipadx="10" ipady="15"/>
+            </constraints>
+            <properties>
+              <font size="14"/>
+            </properties>
+          </component>
+          <component id="d7602" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag top="15" left="10" bottom="0" right="0" weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <font size="14"/>
+              <horizontalAlignment value="4"/>
+              <text value="端口号："/>
+            </properties>
+          </component>
+          <component id="77346" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">
+            <constraints>
+              <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="3" indent="0" use-parent-layout="false"/>
+              <gridbag top="10" left="0" bottom="10" right="0" weightx="0.0" weighty="0.0" ipadx="10" ipady="10"/>
+            </constraints>
+            <properties>
+              <font size="14"/>
+              <model>
+                <item value="2"/>
+                <item value="3"/>
+                <item value="4"/>
+              </model>
+            </properties>
+          </component>
+          <component id="57256" class="javax.swing.JButton" binding="returnButton">
+            <constraints>
+              <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag top="10" left="10" bottom="20" right="10" weightx="0.0" weighty="0.0" ipadx="10" ipady="10"/>
+            </constraints>
+            <properties>
+              <font size="14"/>
+              <text value="返回"/>
+            </properties>
+          </component>
+          <vspacer id="d6ca0">
+            <constraints>
+              <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.7"/>
+            </constraints>
+          </vspacer>
+          <hspacer id="2ba24">
+            <constraints>
+              <grid row="4" column="3" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.5" weighty="0.0"/>
+            </constraints>
+          </hspacer>
+          <component id="66ea" class="javax.swing.JButton" binding="createButton">
+            <constraints>
+              <grid row="4" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag top="10" left="10" bottom="20" right="10" weightx="0.0" weighty="0.0" ipadx="10" ipady="10"/>
+            </constraints>
+            <properties>
+              <font size="14"/>
+              <text value="创建"/>
+            </properties>
+          </component>
+          <hspacer id="c9de9">
+            <constraints>
+              <grid row="4" column="5" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.5" weighty="0.0"/>
+            </constraints>
+          </hspacer>
+          <hspacer id="69ad0">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.3" weighty="0.0"/>
+            </constraints>
+          </hspacer>
+          <vspacer id="5182a">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.3"/>
+            </constraints>
+          </vspacer>
+        </children>
+      </grid>
+      <grid id="3cf17" binding="enterPanel" layout-manager="GridBagLayout">
+        <constraints>
+          <card name="Card3"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="22f3e" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <enabled value="true"/>
+              <font size="14"/>
+              <horizontalAlignment value="4"/>
+              <horizontalTextPosition value="0"/>
+              <text value="端口号："/>
+            </properties>
+          </component>
+          <vspacer id="14a86">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.3"/>
+            </constraints>
+          </vspacer>
+          <vspacer id="16bb5">
+            <constraints>
+              <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.7"/>
+            </constraints>
+          </vspacer>
+          <hspacer id="90150">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.2" weighty="0.0"/>
+            </constraints>
+          </hspacer>
+          <hspacer id="713af">
+            <constraints>
+              <grid row="4" column="3" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.1" weighty="0.0"/>
+            </constraints>
+          </hspacer>
+          <component id="ace96" class="javax.swing.JTextField" binding="portTextField">
+            <constraints>
+              <grid row="2" column="2" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+              <gridbag top="10" left="0" bottom="10" right="10" weightx="0.3" weighty="0.0" ipadx="10" ipady="10"/>
+            </constraints>
+            <properties>
+              <font size="16"/>
+            </properties>
+          </component>
+          <hspacer id="cd2fb">
+            <constraints>
+              <grid row="4" column="5" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.3" weighty="0.0"/>
+            </constraints>
+          </hspacer>
+          <component id="a126e" class="javax.swing.JButton" binding="enterButton">
+            <constraints>
+              <grid row="4" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag top="10" left="10" bottom="20" right="10" weightx="0.0" weighty="0.0" ipadx="10" ipady="10"/>
+            </constraints>
+            <properties>
+              <font size="14"/>
+              <text value="加入"/>
+            </properties>
+          </component>
+          <component id="c6328" class="javax.swing.JButton" binding="returnButton1">
+            <constraints>
+              <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag top="10" left="10" bottom="20" right="10" weightx="0.0" weighty="0.0" ipadx="10" ipady="10"/>
+            </constraints>
+            <properties>
+              <font size="14"/>
+              <text value="返回"/>
+            </properties>
+          </component>
+          <component id="86a60" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <enabled value="true"/>
+              <font size="14"/>
+              <horizontalAlignment value="4"/>
+              <horizontalTextPosition value="0"/>
+              <text value="服务端IP："/>
+            </properties>
+          </component>
+          <component id="6e14f" class="javax.swing.JTextField" binding="IPTextField">
+            <constraints>
+              <grid row="1" column="2" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+              <gridbag top="10" left="0" bottom="10" right="10" weightx="0.3" weighty="0.0" ipadx="10" ipady="10"/>
+            </constraints>
+            <properties>
+              <font size="16"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="f3dae" binding="waitPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
+        <constraints>
+          <card name="Card4"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="c2dbd" class="javax.swing.JLabel">
+            <constraints border-constraint="North"/>
+            <properties>
+              <font size="20"/>
+              <text value="玩家列表"/>
+            </properties>
+          </component>
+          <component id="96fcc" class="javax.swing.JTextArea" binding="textArea1" default-binding="true">
+            <constraints border-constraint="Center"/>
+            <properties>
+              <editable value="false"/>
+              <font size="16"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>
