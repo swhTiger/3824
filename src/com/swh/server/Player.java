@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 
 public class Player {
 
@@ -30,7 +31,7 @@ public class Player {
 
     Player(Socket socket) throws IOException {
         this.printWriter = new PrintWriter(socket.getOutputStream(), true);
-        this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
         this.name = bufferedReader.readLine();
         score = 0;
     }
