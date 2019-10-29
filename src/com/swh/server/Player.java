@@ -13,7 +13,7 @@ public class Player {
     private PrintWriter printWriter;
     private BufferedReader bufferedReader;
 
-    static int answeredPlayerCount = 0;
+    static int answeredPlayerCount = 0; //记录已经提交答案的玩家数
 
     int getScore() {
         return score;
@@ -40,12 +40,12 @@ public class Player {
         return name;
     }
 
-    //从服务端发送消息给客户端
+    /*从服务端发送消息给客户端*/
     void send(String msg) {
         printWriter.println(msg);
     }
 
-    //从客户端接收消息，给外部调用的
+    /*从客户端接收消息，会阻塞*/
     String read() throws IOException {
         return bufferedReader.readLine();
     }

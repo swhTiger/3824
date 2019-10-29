@@ -6,7 +6,6 @@ import java.awt.*;
 import java.io.IOException;
 
 public class gameFrame {
-    private JFrame frame;
     private JTextField answerTextField;
     private JButton clearButton;
     private JButton postButton;
@@ -30,7 +29,7 @@ public class gameFrame {
     private String[] cardGroup = new String[4];
 
     gameFrame(Player player) {
-        frame = new JFrame("24点牌戏  "+player.getName());
+        JFrame frame = new JFrame("24点牌戏  " + player.getName());
         frame.setContentPane(rootPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setMinimumSize(new Dimension(500,400));
@@ -38,6 +37,7 @@ public class gameFrame {
         frame.pack();
         frame.setVisible(true);
         this.player = player;
+        //创建接收线程对象(此时还没开启线程)，处理服务器发送的消息
         recThread = new Thread(() -> {
             try {
                 gameLogical();
@@ -45,7 +45,7 @@ public class gameFrame {
                 e.printStackTrace();
             }
         });
-
+        //倒计时器线程
         timerThread = new Thread(() -> {
             while (true) {
                 restTimeLabel.setText(restTime+"");
@@ -58,11 +58,11 @@ public class gameFrame {
                 }
             }
         });
-        clearButton.addActionListener(e -> answerTextField.setText(""));
+        clearButton.addActionListener(e -> answerTextField.setText(""));    //使用lambda表达式
         postButton.addActionListener(e -> {
            boolean result = Cards.checkAnswer(answerTextField.getText(), cardGroup);
-           player.send(result+"");
-           postButton.setEnabled(false);
+           player.send(result+"");  //将处理的答案结果发送给服务器，由服务器统计分数
+           postButton.setEnabled(false);    //只能提交一次，所以暂时禁用提交按钮
         });
     }
 
@@ -73,6 +73,7 @@ public class gameFrame {
 
 
     private void showScores(String[] names, int[] scores) {
+        //先降序排序，再显示排名和分数
         String name;
         int score;
         int count = names.length;
@@ -111,29 +112,32 @@ public class gameFrame {
             String msg = player.read();
             switch (msg) {
                 case "Round":   //接收到服务器发来新的回合
-                    String round = player.read();
-                    roundLabel.setText("回合 "+round+"/13");
+                    String round = player.read();   //接收回合数
+                    roundLabel.setText("回合 "+round+"/13");  //显示回合数
+                    //接收4张卡牌
                     cardGroup[0] = player.read();
                     cardGroup[1] = player.read();
                     cardGroup[2] = player.read();
                     cardGroup[3] = player.read();
-                    restTime = 100;
+                    restTime = 100; //重置时间
+                    //显示4张卡牌
                     cardLabel1.setText(cardGroup[0]);
                     cardLabel2.setText(cardGroup[1]);
                     cardLabel3.setText(cardGroup[2]);
                     cardLabel4.setText(cardGroup[3]);
-                    postButton.setEnabled(true);  //激活提交按钮
+                    postButton.setEnabled(true);  //重新激活提交按钮
                     answerTextField.setText("");    //清空答题框
                     break;
                 case "Score":   //接收到服务器发来所有玩家的分数
-                    int count = Integer.parseInt(player.read());
+                    int count = Integer.parseInt(player.read());    //接收数量信息
+                    //依次接收玩家名称和分数
                     String[] names = new String[count];
                     int[] scores = new int[count];
                     for (int i=0; i<count; i++) {
                         names[i] = player.read();
                         scores[i] = Integer.parseInt(player.read());
                     }
-                    showScores(names, scores);
+                    showScores(names, scores);  //排序并显示
                     break;
                 case "over":    //接收到服务器发送的游戏结束标志
                     player.send("over");    //同样返回一个结束标志，以结束服务器端的循环接收线程

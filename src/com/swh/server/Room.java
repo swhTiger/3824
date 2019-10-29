@@ -18,7 +18,6 @@ public class Room extends Thread {
 
     public Room(int port, int count) throws IOException {
         this.serverSocket = new ServerSocket(port, count);
-        //IPAddress = InetAddress.getLocalHost().getHostAddress();
         IPAddress = getHostIp();
         System.out.println("Room Server创建成功");
         this.count = count;
@@ -34,10 +33,10 @@ public class Room extends Thread {
         try{
             Enumeration<NetworkInterface> allNetInterfaces = NetworkInterface.getNetworkInterfaces();
             while (allNetInterfaces.hasMoreElements()){
-                NetworkInterface netInterface = (NetworkInterface) allNetInterfaces.nextElement();
+                NetworkInterface netInterface = allNetInterfaces.nextElement();
                 Enumeration<InetAddress> addresses = netInterface.getInetAddresses();
                 while (addresses.hasMoreElements()){
-                    InetAddress ip = (InetAddress) addresses.nextElement();
+                    InetAddress ip = addresses.nextElement();
                     if (ip instanceof Inet4Address
                             && !ip.isLoopbackAddress() //loopback地址即本机地址，IPv4的loopback范围是127.0.0.0 ~ 127.255.255.255
                             && !ip.getHostAddress().contains(":")){
@@ -72,18 +71,18 @@ public class Room extends Thread {
                 p += players[n].getName() + " ";
                 broadcast(p);
             } catch (IOException e) {
-                e.printStackTrace();
-                System.exit(2);
+                    e.printStackTrace();
+                    System.exit(2);
             }
         }
         //所有玩家都已加入，开始游戏
-        broadcast("begin");
+        broadcast("begin"); //发出通知，使客户端进入游戏界面
         gameStart();
     }
 
     private void gameStart() {
         Cards cards = new Cards();  //新建一副打乱的卡牌对象
-        //让服务器的每个玩家开始监听从客户端接收的消息
+        //让服务器的每个玩家对象开始监听从客户端接收的消息
         for (Player p : players) new Thread(() -> {
             try {
                 p.clearScore();
@@ -122,7 +121,7 @@ public class Room extends Thread {
                 t--;
             }
 
-            Player.answeredPlayerCount = 0; //将以回答人数置零
+            Player.answeredPlayerCount = 0; //将已经回答人数置零
             //给所有玩家发送各个玩家的分数
             broadcast("Score");
             broadcast(count+"");

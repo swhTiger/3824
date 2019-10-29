@@ -29,7 +29,7 @@ public class Launcher {
 
     private Player player;
 
-    public Launcher() {
+    private Launcher() {
         imageLabel.setIcon(new ImageIcon("assets/cardpicture.png"));//在打包jar时用下面一条以访问包里面的资源
         //imageLabel.setIcon(new ImageIcon(getClass().getResource("assets/cardpicture.png")));//在打包为jar时也能获取包里面的资源
         createRoomButton.addActionListener(e -> ((CardLayout) rootPanel.getLayout()).show(rootPanel, "Card2"));
@@ -48,20 +48,20 @@ public class Launcher {
         String name;
         while (true) {  //通过弹窗获取玩家名称
             name = JOptionPane.showInputDialog(frame.getContentPane(), "输入玩家名称", "创建玩家", JOptionPane.PLAIN_MESSAGE);
-            if (name == null)
+            if (name == null)   //如果点击的“取消”得到的为null，就关闭客服端
                 System.exit(1);
             if (name.isEmpty()) {
                 JOptionPane.showMessageDialog(frame.getContentPane(), "名称不能为空！", "提醒", JOptionPane.WARNING_MESSAGE);
             }else break;
         }
-        frame.setTitle(name);
-        player = new Player(name);
+        frame.setTitle(name);   //重新将Title设置为玩家的名称
+        player = new Player(name);  //创建 client/Player对象
 
         enterButton.addActionListener(e -> new Thread(this::enterRoom).start());
     }
 
     private void waitPlayers() {
-        ((CardLayout) rootPanel.getLayout()).show(rootPanel, "Card4");
+        ((CardLayout) rootPanel.getLayout()).show(rootPanel, "Card4");  //显示waitPanel
         while (true) {
             try {
                 String rec = player.read();
@@ -70,12 +70,12 @@ public class Launcher {
                     runGame();
                     return;
                 } else {
+                    //刷新人员列表
                     rec = rec.replaceAll(" ", "\n");
                     textArea1.removeAll();
                     textArea1.append(rec);
                 }
             } catch (IOException e) {
-                //e.printStackTrace();
                 System.out.println("消息接收时出现错误");
             }
         }
@@ -83,17 +83,17 @@ public class Launcher {
     }
 
     private void runGame() {
-        System.out.println("游戏开始");
-        gameFrame gameFrame = new gameFrame(player);
+        //System.out.println("游戏开始");
+        gameFrame gameFrame = new gameFrame(player);    //开启游戏界面
         gameFrame.Ready();
     }
 
     private void enterRoom() {
-        String ipAddress = IPTextField.getText();
-        int port = Integer.parseInt(portTextField.getText());
+        String ipAddress = IPTextField.getText();   //获取输入的IP地址
+        int port = Integer.parseInt(portTextField.getText());   //获取输入的端口号
         try {
-            player.connect(ipAddress, port);
-            waitPlayers();
+            player.connect(ipAddress, port);    //连接到服务器
+            waitPlayers();  //进入等待玩家界面
         } catch (IOException e) {
             JOptionPane.showMessageDialog(rootPanel, "连接到房间失败","错误", JOptionPane.WARNING_MESSAGE);
         }
@@ -113,19 +113,18 @@ public class Launcher {
         }
         int count = Integer.parseInt((String) Objects.requireNonNull(comboBox1.getSelectedItem()));
         try {
-            String IP = new Room(port, count).getIPAddress();
-            frame.setTitle(frame.getTitle()+" @"+IP+":"+port);
-            player.connect("localhost", port);
-            waitPlayers();
+            String IP = new Room(port, count).getIPAddress();   //创建房间(服务器)，并且获取本机的局域网IP地址
+            frame.setTitle(frame.getTitle()+" @"+IP+":"+port);  //将IP和端口号显示在房主客户端上
+            player.connect("localhost", port);  //本机连接到房间，直接使用localhost就行了
+            waitPlayers();  //进入等待玩家页面
         } catch (IOException e) {
             JOptionPane.showMessageDialog(rootPanel, "创建套接字失败","错误", JOptionPane.WARNING_MESSAGE);
         }
     }
 
     public static void main(String[] args) throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
-        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        System.out.println(System.getProperty("user.dir"));
+        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());    //设置为操作系统默认UI样式
         new Launcher();
-        //new Launcher();
+        //new Launcher();   //如果不方便开两台电脑，就可以开两个客户端进行测试
     }
 }
