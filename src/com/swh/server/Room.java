@@ -17,9 +17,9 @@ public class Room extends Thread {
     private Player[] players;
 
     public Room(int port, int count) throws IOException {
-        this.serverSocket = new ServerSocket(port, count);
+        this.serverSocket = new ServerSocket(port);
         IPAddress = getHostIp();
-        System.out.println("Room Server创建成功");
+        //System.out.println("Room Server创建成功");
         this.count = count;
         this.players = new Player[count];
         start();
@@ -40,7 +40,7 @@ public class Room extends Thread {
                     if (ip instanceof Inet4Address
                             && !ip.isLoopbackAddress() //loopback地址即本机地址，IPv4的loopback范围是127.0.0.0 ~ 127.255.255.255
                             && !ip.getHostAddress().contains(":")){
-                        System.out.println("本机的IP = " + ip.getHostAddress());
+                        //System.out.println("本机的IP = " + ip.getHostAddress());
                         return ip.getHostAddress();
                     }
                 }
@@ -63,11 +63,11 @@ public class Room extends Thread {
     public void run() {
         //等待玩家加入房间
         String p = "";
-        System.out.println("开始等待玩家接入...");
+        //System.out.println("开始等待玩家接入...");
         for (int n=0; n < count; n++) {
             try {
                 players[n] = new Player(serverSocket.accept());
-                System.out.println("服务端："+players[n].getName()+" 接入成功");
+                //System.out.println("服务端："+players[n].getName()+" 接入成功");
                 p += players[n].getName() + " ";
                 broadcast(p);
             } catch (IOException e) {
@@ -94,8 +94,8 @@ public class Room extends Thread {
         String[] group;
         int round = 1;  //回合数
         //先发送一次玩家的顺序
-        broadcast("Score");
         broadcast(count+"");
+        broadcast("Score");
         for (Player p : players) {
             broadcast(p.getName());
             broadcast(p.getScore()+"");
@@ -124,7 +124,6 @@ public class Room extends Thread {
             Player.answeredPlayerCount = 0; //将已经回答人数置零
             //给所有玩家发送各个玩家的分数
             broadcast("Score");
-            broadcast(count+"");
             for (Player p : players) {
                 broadcast(p.getName());
                 broadcast(p.getScore()+"");
@@ -142,7 +141,6 @@ public class Room extends Thread {
                     player.winScore(4-Player.answeredPlayerCount);
                     Player.answeredPlayerCount++;
                     broadcast("Score");
-                    broadcast(count+"");
                     for (Player p : players) {
                         broadcast(p.getName());
                         broadcast(p.getScore()+"");

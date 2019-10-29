@@ -6,6 +6,7 @@ import java.awt.*;
 import java.io.IOException;
 
 public class gameFrame {
+    private JFrame frame;
     private JTextField answerTextField;
     private JButton clearButton;
     private JButton postButton;
@@ -29,7 +30,7 @@ public class gameFrame {
     private String[] cardGroup = new String[4];
 
     gameFrame(Player player) {
-        JFrame frame = new JFrame("24点牌戏  " + player.getName());
+        frame = new JFrame("24点牌戏  " + player.getName());
         frame.setContentPane(rootPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setMinimumSize(new Dimension(500,400));
@@ -100,7 +101,7 @@ public class gameFrame {
                 case 2:
                     third.setText("3. "+names[i]+" "+scores[i]);
                     break;
-                case 4:
+                case 3:
                     fourth.setText("4. "+names[i]+" "+scores[i]);
                     break;
             }
@@ -108,6 +109,9 @@ public class gameFrame {
     }
 
     private void gameLogical() throws IOException {
+        int count = Integer.parseInt(player.read());
+        String[] names = new String[count];
+        int[] scores = new int[count];
         while (true) {
             String msg = player.read();
             switch (msg) {
@@ -129,10 +133,9 @@ public class gameFrame {
                     answerTextField.setText("");    //清空答题框
                     break;
                 case "Score":   //接收到服务器发来所有玩家的分数
-                    int count = Integer.parseInt(player.read());    //接收数量信息
+                    //int count = Integer.parseInt(player.read());    //接收数量信息
                     //依次接收玩家名称和分数
-                    String[] names = new String[count];
-                    int[] scores = new int[count];
+
                     for (int i=0; i<count; i++) {
                         names[i] = player.read();
                         scores[i] = Integer.parseInt(player.read());
@@ -141,7 +144,14 @@ public class gameFrame {
                     break;
                 case "over":    //接收到服务器发送的游戏结束标志
                     player.send("over");    //同样返回一个结束标志，以结束服务器端的循环接收线程
-                    return; //结束当前循环接收线程
+                    for (int i = 0; i < count; i++) {
+                        if (names[i].equals(player.getName())) {
+                            JOptionPane.showMessageDialog(frame, String.format("您获得了第% d 名！", i+1), "结果", JOptionPane.INFORMATION_MESSAGE);
+                            break;
+                        }
+                    }
+                    System.exit(1);
+                    //return; //结束当前循环接收线程
             }
         }
     }

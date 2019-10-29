@@ -30,8 +30,11 @@ public class Launcher {
     private Player player;
 
     private Launcher() {
-        imageLabel.setIcon(new ImageIcon("assets/cardpicture.png"));//在打包jar时用下面一条以访问包里面的资源
-        //imageLabel.setIcon(new ImageIcon(getClass().getResource("assets/cardpicture.png")));//在打包为jar时也能获取包里面的资源
+        try {
+            imageLabel.setIcon(new ImageIcon(getClass().getResource("assets/cardpicture.png")));//在打包为jar时获取包里面的资源
+        } catch (NullPointerException e) {
+            imageLabel.setIcon(new ImageIcon("assets/cardpicture.png"));
+        }
         createRoomButton.addActionListener(e -> ((CardLayout) rootPanel.getLayout()).show(rootPanel, "Card2"));
         returnButton.addActionListener(e -> ((CardLayout) rootPanel.getLayout()).show(rootPanel, "Card1"));
         enterRoomButton.addActionListener(e -> ((CardLayout) rootPanel.getLayout()).show(rootPanel, "Card3"));
@@ -72,8 +75,8 @@ public class Launcher {
                 } else {
                     //刷新人员列表
                     rec = rec.replaceAll(" ", "\n");
-                    textArea1.removeAll();
-                    textArea1.append(rec);
+                    textArea1.setText("");
+                    textArea1.append(rec+"\n");
                 }
             } catch (IOException e) {
                 System.out.println("消息接收时出现错误");

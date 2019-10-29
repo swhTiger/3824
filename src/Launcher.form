@@ -263,6 +263,7 @@
             </constraints>
             <properties>
               <font size="16"/>
+              <text value="localhost"/>
             </properties>
           </component>
         </children>

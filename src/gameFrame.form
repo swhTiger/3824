@@ -53,7 +53,7 @@
           <text value=""/>
         </properties>
       </component>
-      <component id="bbcb8" class="javax.swing.JLabel" binding="fourth">
+      <component id="bbcb8" class="javax.swing.JLabel">
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
           <gridbag top="0" left="5" bottom="0" right="0" weightx="0.0" weighty="0.0" ipadx="35"/>
@@ -65,7 +65,7 @@
           <verticalTextPosition value="0"/>
         </properties>
       </component>
-      <component id="3028f" class="javax.swing.JLabel">
+      <component id="3028f" class="javax.swing.JLabel" binding="fourth">
         <constraints>
           <grid row="4" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
           <gridbag weightx="0.0" weighty="0.0"/>
