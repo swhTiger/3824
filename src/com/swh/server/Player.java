@@ -7,6 +7,9 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 
+/**
+ * 服务器的Player对象，负责与客户端的连接、通信和玩家信息记录
+ * */
 class Player {
 
     private String name;
@@ -27,8 +30,6 @@ class Player {
     void clearScore() {
         this.score = 0;
     }
-
-
 
     Player(Socket socket) throws IOException {
         this.printWriter = new PrintWriter(socket.getOutputStream(), true);

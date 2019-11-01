@@ -11,10 +11,10 @@ public class gameFrame {
     private JButton clearButton;
     private JButton postButton;
     private JPanel rootPanel;
-    private JLabel first;
-    private JLabel second;
-    private JLabel third;
-    private JLabel fourth;
+    private JLabel nameLabel1;
+    private JLabel nameLabel2;
+    private JLabel nameLabel3;
+    private JLabel nameLabel4;
     private JLabel cardLabel1;
     private JLabel cardLabel2;
     private JLabel cardLabel3;
@@ -22,8 +22,16 @@ public class gameFrame {
     private JLabel restTimeLabel;
     private JLabel roundLabel;
     private JLabel resultLabel;
+    private JLabel scoreLabel1;
+    private JLabel scoreLabel2;
+    private JLabel scoreLabel3;
+    private JLabel scoreLabel4;
+    private JLabel rankLabel1;
+    private JLabel rankLabel2;
+    private JLabel rankLabel3;
+    private JLabel rankLabel4;
 
-    private Player player;
+    private Player player;  // client/Player
     private Thread recThread;
     private Thread timerThread;
     private int restTime;
@@ -50,7 +58,7 @@ public class gameFrame {
         //倒计时器线程
         timerThread = new Thread(() -> {
             while (true) {
-                restTimeLabel.setText(restTime+"");
+                restTimeLabel.setText(String.format("% 4d", restTime));
                 restTime--;
                 if (restTime < 0) restTime = 0;
                 try {
@@ -62,7 +70,7 @@ public class gameFrame {
         });
         clearButton.addActionListener(e -> answerTextField.setText(""));    //使用lambda表达式
         postButton.addActionListener(e -> {
-           boolean result = Cards.checkAnswer(answerTextField.getText(), cardGroup);
+           boolean result = Cards.checkAnswer(answerTextField.getText(), cardGroup);    //验证答案
            //显示结果信息
            if (result)
                resultLabel.setText("正确！");
@@ -73,12 +81,19 @@ public class gameFrame {
         });
     }
 
+    /**
+     * 启动客户端的接收线程和倒计时线程
+     * */
     void Ready() {
         recThread.start();
         timerThread.start();
     }
 
-
+    /**
+     * 对玩家进行排名，并显示排名和分数
+     * @param names : 玩家名称
+     * @param scores : 与名称依次对应的玩家分数
+     * */
     private void showScores(String[] names, int[] scores) {
         //先降序排序，再显示排名和分数
         String name;
@@ -96,26 +111,47 @@ public class gameFrame {
                 }
             }
         }
-        for (int i = 0; i < count; i++) {
-            switch (i) {
-                case 0:
-                    first.setText("1. "+names[i]+" "+scores[i]);
-                    break;
-                case 1:
-                    second.setText("2. "+names[i]+" "+scores[i]);
-                    break;
-                case 2:
-                    third.setText("3. "+names[i]+" "+scores[i]);
-                    break;
-                case 3:
-                    fourth.setText("4. "+names[i]+" "+scores[i]);
-                    break;
-            }
-        }
+        try {
+            nameLabel1.setText(names[0]);
+            scoreLabel1.setText(String.valueOf(scores[0]));
+            nameLabel2.setText(names[1]);
+            scoreLabel2.setText(String.valueOf(scores[1]));
+            nameLabel3.setText(names[2]);
+            scoreLabel3.setText(String.valueOf(scores[2]));
+            nameLabel4.setText(names[3]);
+            scoreLabel4.setText(String.valueOf(scores[3]));
+        } catch (ArrayIndexOutOfBoundsException ignored) {}
+
+//        for (int i = 0; i < count; i++) {
+//            switch (i) {
+//                case 0:
+//                    nameLabel1.setText("1. "+names[i]+" \t"+scores[i]);
+//                    break;
+//                case 1:
+//                    nameLabel2.setText("2. "+names[i]+" \t"+scores[i]);
+//                    break;
+//                case 2:
+//                    nameLabel3.setText("3. "+names[i]+" \t"+scores[i]);
+//                    break;
+//                case 3:
+//                    nameLabel4.setText("4. "+names[i]+" \t"+scores[i]);
+//                    break;
+//            }
+//        }
     }
 
+    /**
+     * 循环接收服务器的消息并处理，直到接收到“over”为止
+     * */
     private void gameLogical() throws IOException {
         int count = Integer.parseInt(player.read());
+        if (count == 3)
+            rankLabel3.setText("3.");
+        else if (count == 4) {
+            rankLabel3.setText("3.");
+            rankLabel4.setText("4.");
+        }
+
         String[] names = new String[count];
         int[] scores = new int[count];
         while (true) {
@@ -140,9 +176,7 @@ public class gameFrame {
                     resultLabel.setText("");    //清空结果提示
                     break;
                 case "Score":   //接收到服务器发来所有玩家的分数
-                    //int count = Integer.parseInt(player.read());    //接收数量信息
                     //依次接收玩家名称和分数
-
                     for (int i=0; i<count; i++) {
                         names[i] = player.read();
                         scores[i] = Integer.parseInt(player.read());
@@ -157,8 +191,7 @@ public class gameFrame {
                             break;
                         }
                     }
-                    System.exit(1);
-                    //return; //结束当前循环接收线程
+                    System.exit(1); //结束程序
             }
         }
     }

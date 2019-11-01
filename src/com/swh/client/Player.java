@@ -7,11 +7,10 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 
+/**
+ * 客户端Player对象，负责与服务器的连接以及通信
+ * */
 public class Player {
-
-    public String getName() {
-        return name;
-    }
 
     private String name;
     private PrintWriter printWriter;
@@ -19,6 +18,10 @@ public class Player {
 
     public Player(String name) {
         this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void connect(String IPAddress, int port) throws IOException {

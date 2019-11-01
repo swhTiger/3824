@@ -33,18 +33,20 @@ public class Room extends Thread {
         return IPAddress;
     }
 
-    private static String getHostIp(){
+    /**
+     * 获取本机的内网IP地址
+     * */
+    private static String getHostIp() {
         try{
             Enumeration<NetworkInterface> allNetInterfaces = NetworkInterface.getNetworkInterfaces();
-            while (allNetInterfaces.hasMoreElements()){
+            while (allNetInterfaces.hasMoreElements()) {
                 NetworkInterface netInterface = allNetInterfaces.nextElement();
                 Enumeration<InetAddress> addresses = netInterface.getInetAddresses();
-                while (addresses.hasMoreElements()){
+                while (addresses.hasMoreElements()) {
                     InetAddress ip = addresses.nextElement();
                     if (ip instanceof Inet4Address
                             && !ip.isLoopbackAddress() //loopback地址即本机地址，IPv4的loopback范围是127.0.0.0 ~ 127.255.255.255
-                            && !ip.getHostAddress().contains(":")){
-                        //System.out.println("本机的IP = " + ip.getHostAddress());
+                            && !ip.getHostAddress().contains(":")) {
                         return ip.getHostAddress();
                     }
                 }
@@ -70,11 +72,9 @@ public class Room extends Thread {
     public void run() {
         //等待玩家加入房间
         String p = "";
-        //System.out.println("开始等待玩家接入...");
         for (int n=0; n < count; n++) {
             try {
                 players[n] = new Player(serverSocket.accept());
-                //System.out.println("服务端："+players[n].getName()+" 接入成功");
                 p += players[n].getName() + " ";
                 broadcast(p);
             } catch (IOException e) {

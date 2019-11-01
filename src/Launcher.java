@@ -2,6 +2,7 @@ import com.swh.client.Player;
 import com.swh.server.Room;
 
 import javax.swing.*;
+import javax.swing.plaf.FontUIResource;
 import java.awt.*;
 import java.io.IOException;
 import java.util.Objects;
@@ -71,13 +72,15 @@ public class Launcher {
         enterButton.addActionListener(e -> new Thread(this::enterRoom).start());
     }
 
+    /**
+     * 等待其他玩家加入，直到接收到“begin”
+     * */
     private void waitPlayers() {
         ((CardLayout) rootPanel.getLayout()).show(rootPanel, "Card4");  //显示waitPanel
         while (true) {
             try {
                 String rec = player.read();
                 if (rec.equals("begin")) {
-                    frame.setVisible(false);    //游戏开始，隐藏Launcher
                     runGame();
                     return;
                 } else {
@@ -93,11 +96,18 @@ public class Launcher {
 
     }
 
+    /**
+     * 启动游戏界面，开始游戏
+     * */
     private void runGame() {
+        frame.setVisible(false);    //游戏开始，隐藏Launcher
         gameFrame gameFrame = new gameFrame(player);    //开启游戏界面
         gameFrame.Ready();
     }
 
+    /**
+     * 加入房间
+     * */
     private void enterRoom() {
         String ipAddress = IPTextField.getText();   //获取输入的IP地址
         int port = Integer.parseInt(portTextField.getText());   //获取输入的端口号
@@ -109,10 +119,13 @@ public class Launcher {
         }
     }
 
+    /**
+     * 创建房间
+     * */
     private void createRoom() {
         int port;
         try {
-            port = Integer.parseInt(textField1.getText());
+            port = Integer.parseInt(textField1.getText());  //从文本框获取用户输入的端口号
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPanel, "非法端口号","错误", JOptionPane.WARNING_MESSAGE);
             return;
@@ -121,7 +134,7 @@ public class Launcher {
             JOptionPane.showMessageDialog(rootPanel, "换个房间号试试","错误", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        int count = Integer.parseInt((String) Objects.requireNonNull(comboBox1.getSelectedItem()));
+        int count = Integer.parseInt((String) Objects.requireNonNull(comboBox1.getSelectedItem()));//获取人数信息
         try {
             String IP = new Room(port, count).getIPAddress();   //创建房间(服务器)，并且获取本机的局域网IP地址
             frame.setTitle(frame.getTitle()+" @"+IP+":"+port);  //将IP和端口号显示在房主客户端上
@@ -134,7 +147,9 @@ public class Launcher {
 
     public static void main(String[] args) throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());    //设置为操作系统默认UI样式
+        UIManager.put("OptionPane.buttonFont", new FontUIResource(new Font("", Font.PLAIN, 14)));
+        UIManager.put("OptionPane.messageFont", new FontUIResource(new Font("", Font.ITALIC, 14)));
         new Launcher();
-        //new Launcher();   //如果不方便开两台电脑，就可以开两个客户端进行测试
+        new Launcher();   //如果不方便开两台电脑，就可以开两个客户端进行测试
     }
 }

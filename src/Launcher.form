@@ -69,6 +69,7 @@
             <properties>
               <font size="14"/>
               <horizontalAlignment value="4"/>
+              <labelFor value="77346"/>
               <text value="玩家数："/>
             </properties>
           </component>
@@ -80,7 +81,7 @@
               <gridbag top="20" left="0" bottom="10" right="0" weightx="0.3" weighty="0.0" ipadx="10" ipady="15"/>
             </constraints>
             <properties>
-              <font size="14"/>
+              <font name="Consolas" size="16"/>
             </properties>
           </component>
           <component id="d7602" class="javax.swing.JLabel">
@@ -91,6 +92,7 @@
             <properties>
               <font size="14"/>
               <horizontalAlignment value="4"/>
+              <labelFor value="2dfdc"/>
               <text value="端口号："/>
             </properties>
           </component>
@@ -100,7 +102,7 @@
               <gridbag top="10" left="0" bottom="10" right="0" weightx="0.0" weighty="0.0" ipadx="10" ipady="10"/>
             </constraints>
             <properties>
-              <font size="14"/>
+              <font name="Consolas" size="16"/>
               <model>
                 <item value="2"/>
                 <item value="3"/>
@@ -177,6 +179,7 @@
               <font size="14"/>
               <horizontalAlignment value="4"/>
               <horizontalTextPosition value="0"/>
+              <labelFor value="ace96"/>
               <text value="端口号："/>
             </properties>
           </component>
@@ -212,7 +215,7 @@
               <gridbag top="10" left="0" bottom="10" right="10" weightx="0.3" weighty="0.0" ipadx="10" ipady="10"/>
             </constraints>
             <properties>
-              <font size="16"/>
+              <font name="Consolas" size="16"/>
             </properties>
           </component>
           <hspacer id="cd2fb">
@@ -251,6 +254,7 @@
               <font size="14"/>
               <horizontalAlignment value="4"/>
               <horizontalTextPosition value="0"/>
+              <labelFor value="6e14f"/>
               <text value="服务端IP："/>
             </properties>
           </component>
@@ -262,7 +266,7 @@
               <gridbag top="10" left="0" bottom="10" right="10" weightx="0.3" weighty="0.0" ipadx="10" ipady="10"/>
             </constraints>
             <properties>
-              <font size="16"/>
+              <font name="Consolas" size="16"/>
               <text value="localhost"/>
             </properties>
           </component>
@@ -278,7 +282,7 @@
           <component id="c2dbd" class="javax.swing.JLabel">
             <constraints border-constraint="North"/>
             <properties>
-              <font size="20"/>
+              <font size="20" style="2"/>
               <text value="玩家列表"/>
             </properties>
           </component>
@@ -287,6 +291,7 @@
             <properties>
               <editable value="false"/>
               <font size="16"/>
+              <lineWrap value="true"/>
             </properties>
           </component>
         </children>
