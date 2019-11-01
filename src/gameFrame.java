@@ -21,6 +21,7 @@ public class gameFrame {
     private JLabel cardLabel4;
     private JLabel restTimeLabel;
     private JLabel roundLabel;
+    private JLabel resultLabel;
 
     private Player player;
     private Thread recThread;
@@ -62,6 +63,11 @@ public class gameFrame {
         clearButton.addActionListener(e -> answerTextField.setText(""));    //使用lambda表达式
         postButton.addActionListener(e -> {
            boolean result = Cards.checkAnswer(answerTextField.getText(), cardGroup);
+           //显示结果信息
+           if (result)
+               resultLabel.setText("正确！");
+           else
+               resultLabel.setText("错误！");
            player.send(result+"");  //将处理的答案结果发送给服务器，由服务器统计分数
            postButton.setEnabled(false);    //只能提交一次，所以暂时禁用提交按钮
         });
@@ -131,6 +137,7 @@ public class gameFrame {
                     cardLabel4.setText(cardGroup[3]);
                     postButton.setEnabled(true);  //重新激活提交按钮
                     answerTextField.setText("");    //清空答题框
+                    resultLabel.setText("");    //清空结果提示
                     break;
                 case "Score":   //接收到服务器发来所有玩家的分数
                     //int count = Integer.parseInt(player.read());    //接收数量信息

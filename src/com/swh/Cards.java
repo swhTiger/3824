@@ -7,6 +7,10 @@ import java.util.List;
 
 public class Cards {
     private Iterator cardIterator;
+
+    /**
+     * 生成一副打乱的卡牌对象
+     * */
     public Cards() {
         List cards = Arrays.asList("A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K",
                 "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K",
@@ -16,6 +20,9 @@ public class Cards {
         cardIterator = cards.iterator();
     }
 
+    /**
+     * 获取下一组随机4张卡牌，迭代完毕就返回null
+     * */
     public String[] next() {
         if (!cardIterator.hasNext())
             return null;
@@ -25,50 +32,80 @@ public class Cards {
         return group;
     }
 
-    public static String getDigital(String card) {
-        switch (card) {
-            case "A":
-            case "a": return "1";
-            case "J":
-            case "j": return "11";
-            case "Q":
-            case "q": return "12";
-            case "K":
-            case "k": return "13";
-            //case "1": return "10";
-            default: return card;
-        }
-    }
-
+    /**
+     * 对答案进行验证
+     * @param answer : 玩家输入的答案
+     * @param group : 所需要使用的4张卡牌
+     * @return : 符合规则，且答案正确，返回true; 否则返回false
+     * */
     public static boolean checkAnswer(String answer, String[] group) {
-        for (String card : group) {
-            switch (card) {
+        /* 将字母转换为数字，方便后面处理 */
+        for (int i = 0; i < 4; i++) {
+            switch (group[i]) {
                 case "A":
+                    group[i] = "1";
                     answer = answer.replace("A", "1");
                     answer = answer.replace("a", "1");
                     break;
                 case "J":
+                    group[i] = "11";
                     answer = answer.replace("J", "11");
                     answer = answer.replace("j", "11");
                     break;
                 case "Q":
+                    group[i] = "12";
                     answer = answer.replace("Q", "12");
                     answer = answer.replace("q", "12");
                     break;
                 case "K":
+                    group[i] = "13";
                     answer = answer.replace("K", "13");
                     answer = answer.replace("k", "13");
                     break;
             }
         }
-        System.out.println(answer);
+        if (!isConformToRules(answer, group)) return false;    //检查是否符合规则
         try {
-            int result = (int) MyCalculator.convert(answer);
+            int result = (int) MyCalculator.convert(answer);    //计算答案
             if (result == 24) return true;
-        } catch (MathExpException e) {
-            e.printStackTrace();
-        }
+        } catch (MathExpException ignored) {}
         return false;
+    }
+
+    /**
+     * 检查答案是否符合规则 ：
+     *     卡牌是否使用完；是否使用了其他的卡牌
+     *     括号是否对其
+     *     运算符号是否使用正确
+     * @param answer : 转换为数字后的算数表达式
+     * @param group : 转换为数字后的卡牌
+     * */
+    private static boolean isConformToRules(String answer, String[] group) {
+        //依次将字符中应该使用的数字删掉，方便后面检查
+        String temp;
+        for (String n : group) {
+            temp = answer.replaceFirst(n, "");
+            if (temp.equals(answer)) {  //替换失败，说明卡牌没有使用完
+                return false;
+            }
+            answer = temp;
+        }
+        int r = 0;  //匹对括号，最后应该为0
+        int ops = 0;    //运算符号个数，最后应该为3
+        for(int i=0; i<answer.length(); i++) {
+            switch (answer.charAt(i)) {
+                case '(': r++; break;
+                case ')': r--; break;
+                case '+':
+                case '-':
+                case '/':
+                case '*':
+                    ops++; break;
+                default:
+                    return false;
+            }
+        }
+        return r == 0 && ops == 3;
     }
 
 }

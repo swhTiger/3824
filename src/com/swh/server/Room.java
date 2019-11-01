@@ -16,10 +16,14 @@ public class Room extends Thread {
     private int count;
     private Player[] players;
 
+    /**
+     * 创建一个房间对象
+     * @param port : 端口号
+     * @param count ：玩家人数
+     * */
     public Room(int port, int count) throws IOException {
         this.serverSocket = new ServerSocket(port);
         IPAddress = getHostIp();
-        //System.out.println("Room Server创建成功");
         this.count = count;
         this.players = new Player[count];
         start();
@@ -51,7 +55,10 @@ public class Room extends Thread {
         return null;
     }
 
-
+    /**
+     * 将消息发送给每一位连接的玩家
+     * @param msg : 要发送的消息(指令、标志、数据)
+     * */
     private void broadcast(String msg) {
         for (int i=0; i<count; i++) {
             if (players[i] != null)
@@ -80,6 +87,9 @@ public class Room extends Thread {
         gameStart();
     }
 
+    /**
+     * 服务器端的主要处理函数，给客户端发送指令和数据
+     * */
     private void gameStart() {
         Cards cards = new Cards();  //新建一副打乱的卡牌对象
         //让服务器的每个玩家对象开始监听从客户端接收的消息
@@ -91,7 +101,7 @@ public class Room extends Thread {
                 e.printStackTrace();
             }
         }).start();
-        String[] group;
+        String[] group; //一组卡牌
         int round = 1;  //回合数
         //先发送一次玩家的顺序
         broadcast(count+"");
@@ -133,6 +143,9 @@ public class Room extends Thread {
         broadcast("over");
     }
 
+    /**
+     * 处理客户端发送的消息，每一位玩家都需要开一个线程处理
+     * */
     private void gameLogical(Player player) throws IOException {
         while (true) {
             String msg = player.read();

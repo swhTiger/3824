@@ -3,13 +3,17 @@ package com.swh;
 import java.util.Stack;
 
 class MathExpException extends Exception {
-    public MathExpException() {}
-    public MathExpException(String msg) {
+    MathExpException() {}
+    MathExpException(String msg) {
         super(msg);
     }
 }
 
-public class MyCalculator {
+/**
+ * 取自于 Java实验二
+ * 计算字符串表达式
+ * */
+class MyCalculator {
     private static int check_char(char ch) throws MathExpException {
         if(('0'<=ch && ch<='9') || ch=='.')
             return 1;
@@ -131,18 +135,7 @@ public class MyCalculator {
         return n;
     }
 
-    public static double convert(String s) throws MathExpException {
-        if(s.isEmpty())
-            return 0;
-        int r=0;
-        for(int i=0; i<s.length(); i++) {
-            char a=s.charAt(i);
-            if(a=='(') r++;
-            else if(a==')') r--;
-        }
-        if(r!=0)
-            throw new MathExpException();
-
+    static double convert(String s) throws MathExpException {
         return math_exp(s);
     }
 }

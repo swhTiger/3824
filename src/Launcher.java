@@ -6,6 +6,14 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.Objects;
 
+
+/**
+ * rootPanel布局方式 : CardLayout
+ * Card1 : choosePanel (选择创建房间或者加入房间)
+ * Card2 : createPanel (创建房间界面)
+ * Card3 : enterPanel (加入房间房间)
+ * Card4 : waitPanel (等待其他玩家加入界面)
+ * */
 public class Launcher {
     private JFrame frame;
 
@@ -55,7 +63,7 @@ public class Launcher {
                 System.exit(1);
             if (name.isEmpty()) {
                 JOptionPane.showMessageDialog(frame.getContentPane(), "名称不能为空！", "提醒", JOptionPane.WARNING_MESSAGE);
-            }else break;
+            } else break;
         }
         frame.setTitle(name);   //重新将Title设置为玩家的名称
         player = new Player(name);  //创建 client/Player对象
@@ -86,7 +94,6 @@ public class Launcher {
     }
 
     private void runGame() {
-        //System.out.println("游戏开始");
         gameFrame gameFrame = new gameFrame(player);    //开启游戏界面
         gameFrame.Ready();
     }
