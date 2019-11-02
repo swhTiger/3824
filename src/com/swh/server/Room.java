@@ -136,12 +136,6 @@ public class Room extends Thread {
 
             Player.answeredPlayerCount = 0; //将已经回答人数置零
             Player.rightPlayerCount = 0;    //将回答正确人数置零
-            //给所有玩家发送各个玩家的分数
-            broadcast("Score");
-            for (Player p : players) {
-                broadcast(p.getName());
-                broadcast(p.getScore()+"");
-            }
             round++;    //回合数+1
         }
         broadcast("over");
