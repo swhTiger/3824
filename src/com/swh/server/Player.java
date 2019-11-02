@@ -16,7 +16,8 @@ class Player {
     private PrintWriter printWriter;
     private BufferedReader bufferedReader;
 
-    static int answeredPlayerCount = 0; //记录已经提交答案的玩家数
+    static int answeredPlayerCount = 0; //已经提交答案的玩家数
+    static int rightPlayerCount = 0;    //回答正确的玩家数
     private int score;
 
     int getScore() {

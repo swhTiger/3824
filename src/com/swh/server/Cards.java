@@ -1,4 +1,7 @@
-package com.swh;
+package com.swh.server;
+
+import com.swh.client.MathExpException;
+import com.swh.client.MyCalculator;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -11,7 +14,7 @@ public class Cards {
     /**
      * 生成一副打乱的卡牌对象
      * */
-    public Cards() {
+    Cards() {
         List cards = Arrays.asList("A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K",
                 "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K",
                 "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K",
@@ -23,7 +26,7 @@ public class Cards {
     /**
      * 获取下一组随机4张卡牌，迭代完毕就返回null
      * */
-    public String[] next() {
+    String[] next() {
         if (!cardIterator.hasNext())
             return null;
         String[] group = new String[4];
@@ -64,6 +67,9 @@ public class Cards {
                     break;
             }
         }
+        //将中文括号转换为英文括号，增大容错率
+        answer = answer.replace("（","(");
+        answer = answer.replace("）",")");
         if (!isConformToRules(answer, group)) return false;    //检查是否符合规则
         try {
             int result = (int) MyCalculator.convert(answer);    //计算答案

@@ -1,4 +1,6 @@
-import com.swh.Cards;
+package com.swh.client;
+
+import com.swh.server.Cards;
 import com.swh.client.Player;
 
 import javax.swing.*;
@@ -121,23 +123,6 @@ public class gameFrame {
             nameLabel4.setText(names[3]);
             scoreLabel4.setText(String.valueOf(scores[3]));
         } catch (ArrayIndexOutOfBoundsException ignored) {}
-
-//        for (int i = 0; i < count; i++) {
-//            switch (i) {
-//                case 0:
-//                    nameLabel1.setText("1. "+names[i]+" \t"+scores[i]);
-//                    break;
-//                case 1:
-//                    nameLabel2.setText("2. "+names[i]+" \t"+scores[i]);
-//                    break;
-//                case 2:
-//                    nameLabel3.setText("3. "+names[i]+" \t"+scores[i]);
-//                    break;
-//                case 3:
-//                    nameLabel4.setText("4. "+names[i]+" \t"+scores[i]);
-//                    break;
-//            }
-//        }
     }
 
     /**

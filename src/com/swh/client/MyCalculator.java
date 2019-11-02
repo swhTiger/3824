@@ -1,19 +1,12 @@
-package com.swh;
+package com.swh.client;
 
 import java.util.Stack;
-
-class MathExpException extends Exception {
-    MathExpException() {}
-    MathExpException(String msg) {
-        super(msg);
-    }
-}
 
 /**
  * 取自于 Java实验二
  * 计算字符串表达式
  * */
-class MyCalculator {
+public class MyCalculator {
     private static int check_char(char ch) throws MathExpException {
         if(('0'<=ch && ch<='9') || ch=='.')
             return 1;
@@ -135,7 +128,7 @@ class MyCalculator {
         return n;
     }
 
-    static double convert(String s) throws MathExpException {
+    public static double convert(String s) throws MathExpException {
         return math_exp(s);
     }
 }

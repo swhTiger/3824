@@ -1,7 +1,5 @@
 package com.swh.server;
 
-import com.swh.Cards;
-
 import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.InetAddress;
@@ -132,6 +130,7 @@ public class Room extends Thread {
             }
 
             Player.answeredPlayerCount = 0; //将已经回答人数置零
+            Player.rightPlayerCount = 0;    //将回答正确人数置零
             //给所有玩家发送各个玩家的分数
             broadcast("Score");
             for (Player p : players) {
@@ -150,19 +149,21 @@ public class Room extends Thread {
         while (true) {
             String msg = player.read();
             switch (msg) {
-                case "true":
-                    player.winScore(4-Player.answeredPlayerCount);
-                    Player.answeredPlayerCount++;
+                case "true":    //回答正确
+                    player.winScore(4-Player.rightPlayerCount); //获得积分
+                    Player.rightPlayerCount++;  //静态成员变量，回答正确人数+1
+                    Player.answeredPlayerCount++;   //静态成员变量，回答人数+1
+                    //向所有玩家发送当前的分数
                     broadcast("Score");
                     for (Player p : players) {
                         broadcast(p.getName());
                         broadcast(p.getScore()+"");
                     }
                     break;
-                case "false":
-                    Player.answeredPlayerCount++;
+                case "false":   //回答错误
+                    Player.answeredPlayerCount++;   //回答人数+1
                     break;
-                case "over": return;
+                case "over": return;    //游戏结束
             }
         }
     }

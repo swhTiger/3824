@@ -1,4 +1,5 @@
-import com.swh.client.Player;
+package com.swh.client;
+
 import com.swh.server.Room;
 
 import javax.swing.*;
@@ -150,6 +151,6 @@ public class Launcher {
         UIManager.put("OptionPane.buttonFont", new FontUIResource(new Font("", Font.PLAIN, 14)));
         UIManager.put("OptionPane.messageFont", new FontUIResource(new Font("", Font.ITALIC, 14)));
         new Launcher();
-        //new Launcher();   //如果不方便开两台电脑，就可以开两个客户端进行测试
+        new Launcher();   //如果不方便开两台电脑，就可以开两个客户端进行测试
     }
 }
