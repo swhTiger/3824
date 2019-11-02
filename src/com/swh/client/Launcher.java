@@ -40,18 +40,16 @@ public class Launcher {
     private Player player;
 
     private Launcher() {
-        try {
-            imageLabel.setIcon(new ImageIcon(getClass().getResource("assets/cardpicture.png")));//在打包为jar时获取包里面的资源
-        } catch (NullPointerException e) {
-            imageLabel.setIcon(new ImageIcon("assets/cardpicture.png"));
-        }
+        imageLabel.setIcon(new ImageIcon(getClass().getResource("/images/cover.png")));//在打包为jar时获取包里面的资源
         createRoomButton.addActionListener(e -> ((CardLayout) rootPanel.getLayout()).show(rootPanel, "Card2"));
         returnButton.addActionListener(e -> ((CardLayout) rootPanel.getLayout()).show(rootPanel, "Card1"));
         enterRoomButton.addActionListener(e -> ((CardLayout) rootPanel.getLayout()).show(rootPanel, "Card3"));
         returnButton1.addActionListener(e -> ((CardLayout) rootPanel.getLayout()).show(rootPanel, "Card1"));
         createButton.addActionListener(e -> new Thread(this::createRoom).start());
+        enterButton.addActionListener(e -> new Thread(this::enterRoom).start());
 
         frame = new JFrame("Launcher");
+        frame.setIconImage(new ImageIcon(getClass().getResource("/images/Icon.png")).getImage());
         frame.setContentPane(rootPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
@@ -69,8 +67,6 @@ public class Launcher {
         }
         frame.setTitle(name);   //重新将Title设置为玩家的名称
         player = new Player(name);  //创建 client/Player对象
-
-        enterButton.addActionListener(e -> new Thread(this::enterRoom).start());
     }
 
     /**
@@ -104,6 +100,19 @@ public class Launcher {
         frame.setVisible(false);    //游戏开始，隐藏Launcher
         gameFrame gameFrame = new gameFrame(player);    //开启游戏界面
         gameFrame.Ready();
+        while (!gameFrame.gameOver) {
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        gameFrame.distroy();
+        //player.disconnect();
+        frame.setVisible(true);
+        frame.setTitle(player.getName());
+        ((CardLayout) rootPanel.getLayout()).show(rootPanel, "Card1");
+
     }
 
     /**
@@ -151,6 +160,6 @@ public class Launcher {
         UIManager.put("OptionPane.buttonFont", new FontUIResource(new Font("", Font.PLAIN, 14)));
         UIManager.put("OptionPane.messageFont", new FontUIResource(new Font("", Font.ITALIC, 14)));
         new Launcher();
-        new Launcher();   //如果不方便开两台电脑，就可以开两个客户端进行测试
+//        new Launcher();   //如果不方便开两台电脑，就可以开两个客户端进行测试
     }
 }

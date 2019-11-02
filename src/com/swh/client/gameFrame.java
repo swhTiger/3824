@@ -37,11 +37,13 @@ public class gameFrame {
     private Thread recThread;
     private Thread timerThread;
     private int restTime;
+    boolean gameOver = false;
 
     private String[] cardGroup = new String[4];
 
     gameFrame(Player player) {
         frame = new JFrame("24点牌戏  " + player.getName());
+        frame.setIconImage(new ImageIcon(getClass().getResource("/images/Icon.png")).getImage());
         frame.setContentPane(rootPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setMinimumSize(new Dimension(500,400));
@@ -59,7 +61,7 @@ public class gameFrame {
         });
         //倒计时器线程
         timerThread = new Thread(() -> {
-            while (true) {
+            while (!gameOver) {
                 restTimeLabel.setText(String.format("% 4d", restTime));
                 restTime--;
                 if (restTime < 0) restTime = 0;
@@ -89,6 +91,10 @@ public class gameFrame {
     void Ready() {
         recThread.start();
         timerThread.start();
+    }
+
+    void distroy() {
+        frame.dispose();
     }
 
     /**
@@ -170,13 +176,16 @@ public class gameFrame {
                     break;
                 case "over":    //接收到服务器发送的游戏结束标志
                     player.send("over");    //同样返回一个结束标志，以结束服务器端的循环接收线程
+                    restTime = 0;
+                    player.disconnect();
                     for (int i = 0; i < count; i++) {
                         if (names[i].equals(player.getName())) {
                             JOptionPane.showMessageDialog(frame, String.format("您获得了第% d 名！", i+1), "结果", JOptionPane.INFORMATION_MESSAGE);
                             break;
                         }
                     }
-                    System.exit(1); //结束程序
+                    gameOver = true;    //游戏结束标志
+                    return;
             }
         }
     }

@@ -80,6 +80,11 @@ public class Room extends Thread {
                     System.exit(2);
             }
         }
+        try {
+            serverSocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         //所有玩家都已加入，开始游戏
         broadcast("begin"); //发出通知，使客户端进入游戏界面
         gameStart();
@@ -163,7 +168,8 @@ public class Room extends Thread {
                 case "false":   //回答错误
                     Player.answeredPlayerCount++;   //回答人数+1
                     break;
-                case "over": return;    //游戏结束
+                case "over":
+                    return;    //游戏结束
             }
         }
     }
