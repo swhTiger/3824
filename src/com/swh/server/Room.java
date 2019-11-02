@@ -11,7 +11,7 @@ import java.util.Enumeration;
 public class Room extends Thread {
     private ServerSocket serverSocket;
     private String IPAddress;
-    private int count;
+    private int count;  //玩家数量
     private Player[] players;
 
     /**
@@ -20,7 +20,7 @@ public class Room extends Thread {
      * @param count ：玩家人数
      * */
     public Room(int port, int count) throws IOException {
-        this.serverSocket = new ServerSocket(port);
+        this.serverSocket = new ServerSocket(port, count);
         IPAddress = getHostIp();
         this.count = count;
         this.players = new Player[count];
