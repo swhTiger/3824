@@ -113,5 +113,4 @@ public class Cards {
         }
         return r == 0 && ops == 3;
     }
-
 }
