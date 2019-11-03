@@ -2,7 +2,7 @@
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.swh.client.Launcher">
   <grid id="27dc6" binding="rootPanel" layout-manager="CardLayout" hgap="0" vgap="0">
     <constraints>
-      <xy x="20" y="20" width="606" height="289"/>
+      <xy x="20" y="20" width="606" height="280"/>
     </constraints>
     <properties>
       <font/>
