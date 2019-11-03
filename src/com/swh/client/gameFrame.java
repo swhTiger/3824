@@ -1,7 +1,6 @@
 package com.swh.client;
 
 import com.swh.server.Cards;
-import com.swh.client.Player;
 
 import javax.swing.*;
 import java.awt.*;
