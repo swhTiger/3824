@@ -3,10 +3,7 @@ package com.swh.server;
 import com.swh.client.MathExpException;
 import com.swh.client.MyCalculator;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class Cards {
     private Iterator cardIterator;
@@ -87,17 +84,16 @@ public class Cards {
      * @param group : 转换为数字后的卡牌
      * */
     private static boolean isConformToRules(String answer, String[] group) {
+        /* 将“1”全部放到后面去，以免在后面删除“1”时将“1x”的1删掉 */
+        Arrays.sort(group, (o1, o2) -> {
+            if (!o1.equals("1") && o2.equals("1")) return -1;
+            return 0;
+        });
         /* 依次将字符中应该使用的数字删掉，方便后面检查 */
         String temp;
         for (int i = 0; i < 4; i++) {
-            if (group[i].equals("1") && i<3) {  //如果卡牌中有“1”，就将其移到最后来替换，因为可能在替换“1”的时候把“1x”中的“1”给替换掉了
-                group[i] = group[3];
-                group[3] = "1";
-            }
             temp = answer.replaceFirst(group[i], "");
-            if (temp.equals(answer)) {  //替换失败，说明卡牌没有使用完
-                return false;
-            }
+            if (temp.equals(answer)) return false;  //替换失败，说明卡牌没有使用完
             answer = temp;
         }
         int r = 0;  //匹对括号，最后应该为0
