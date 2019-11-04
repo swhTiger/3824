@@ -87,10 +87,14 @@ public class Cards {
      * @param group : 转换为数字后的卡牌
      * */
     private static boolean isConformToRules(String answer, String[] group) {
-        //依次将字符中应该使用的数字删掉，方便后面检查
+        /* 依次将字符中应该使用的数字删掉，方便后面检查 */
         String temp;
-        for (String n : group) {
-            temp = answer.replaceFirst(n, "");
+        for (int i = 0; i < 4; i++) {
+            if (group[i].equals("1") && i<3) {  //如果卡牌中有“1”，就将其移到最后来替换，因为可能在替换“1”的时候把“1x”中的“1”给替换掉了
+                group[i] = group[3];
+                group[3] = "1";
+            }
+            temp = answer.replaceFirst(group[i], "");
             if (temp.equals(answer)) {  //替换失败，说明卡牌没有使用完
                 return false;
             }
