@@ -18,7 +18,6 @@ import java.util.Objects;
  * */
 public class Launcher {
     private JFrame frame;
-
     private JPanel rootPanel;
     private JPanel choosePanel;
     private JPanel createPanel;
