@@ -6,6 +6,7 @@ import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
 import java.awt.*;
 import java.io.IOException;
+import java.util.Enumeration;
 import java.util.Objects;
 
 
@@ -19,9 +20,6 @@ import java.util.Objects;
 public class Launcher {
     private JFrame frame;
     private JPanel rootPanel;
-    private JPanel choosePanel;
-    private JPanel createPanel;
-    private JPanel enterPanel;
     private JButton createRoomButton;
     private JButton enterRoomButton;
     private JLabel imageLabel;
@@ -32,7 +30,6 @@ public class Launcher {
     private JTextField portTextField;
     private JButton returnButton1;
     private JButton enterButton;
-    private JPanel waitPanel;
     private JTextArea textArea1;
     private JTextField IPTextField;
 
@@ -47,13 +44,13 @@ public class Launcher {
         createButton.addActionListener(e -> new Thread(this::createRoom).start());
         enterButton.addActionListener(e -> new Thread(this::enterRoom).start());
 
-        frame = new JFrame("Launcher");
+        frame = new JFrame("24点牌戏");
         frame.setIconImage(new ImageIcon(getClass().getResource("/images/Icon.png")).getImage());
         frame.setContentPane(rootPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
-        frame.setLocation(400, 200);
         frame.pack();
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         String name;
         while (true) {  //通过弹窗获取玩家名称
@@ -64,7 +61,7 @@ public class Launcher {
                 JOptionPane.showMessageDialog(frame.getContentPane(), "名称不能为空！", "提醒", JOptionPane.WARNING_MESSAGE);
             } else break;
         }
-        frame.setTitle(name);   //重新将Title设置为玩家的名称
+        frame.setTitle(frame.getTitle()+"  "+name);   //重新将Title设置为玩家的名称
         player = new Player(name);  //创建 client/Player对象
     }
 
@@ -107,6 +104,8 @@ public class Launcher {
             }
         }
         gameFrame.destroy();
+        frame.setTitle("24点牌戏"+"  "+player.getName());
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.setTitle(player.getName());
         ((CardLayout) rootPanel.getLayout()).show(rootPanel, "Card1");
@@ -155,8 +154,13 @@ public class Launcher {
 
     public static void main(String[] args) throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());    //设置为操作系统默认UI样式
-        UIManager.put("OptionPane.buttonFont", new FontUIResource(new Font("", Font.PLAIN, 14)));
-        UIManager.put("OptionPane.messageFont", new FontUIResource(new Font("", Font.ITALIC, 14)));
+        FontUIResource fontRes = new FontUIResource(new Font("", Font.PLAIN, 14));
+        for(Enumeration keys = UIManager.getDefaults().keys(); keys.hasMoreElements();){
+            Object key = keys.nextElement();
+            Object value = UIManager.get(key);
+            if(value instanceof FontUIResource)
+                UIManager.put(key, fontRes);
+        }
         new Launcher();
 //        new Launcher();   //如果不方便开两台电脑，就可以开两个客户端进行测试
     }

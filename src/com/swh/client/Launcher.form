@@ -9,7 +9,7 @@
     </properties>
     <border type="none"/>
     <children>
-      <grid id="acc31" binding="choosePanel" layout-manager="GridBagLayout">
+      <grid id="acc31" layout-manager="GridBagLayout">
         <constraints>
           <card name="Card1"/>
         </constraints>
@@ -34,6 +34,7 @@
               <gridbag top="100" left="10" bottom="10" right="10" weightx="0.0" weighty="0.0" ipadx="10" ipady="10"/>
             </constraints>
             <properties>
+              <focusPainted value="true"/>
               <font size="14"/>
               <text value="创建房间"/>
             </properties>
@@ -52,7 +53,7 @@
           </component>
         </children>
       </grid>
-      <grid id="cd7a7" binding="createPanel" layout-manager="GridBagLayout">
+      <grid id="cd7a7" layout-manager="GridBagLayout">
         <constraints>
           <card name="Card2"/>
         </constraints>
@@ -81,7 +82,7 @@
               <gridbag top="20" left="0" bottom="10" right="0" weightx="0.3" weighty="0.0" ipadx="10" ipady="15"/>
             </constraints>
             <properties>
-              <font name="Consolas" size="16"/>
+              <font size="16"/>
             </properties>
           </component>
           <component id="d7602" class="javax.swing.JLabel">
@@ -102,7 +103,7 @@
               <gridbag top="10" left="0" bottom="10" right="0" weightx="0.0" weighty="0.0" ipadx="10" ipady="10"/>
             </constraints>
             <properties>
-              <font name="Consolas" size="16"/>
+              <font size="16"/>
               <model>
                 <item value="2"/>
                 <item value="3"/>
@@ -116,6 +117,7 @@
               <gridbag top="10" left="10" bottom="20" right="10" weightx="0.0" weighty="0.0" ipadx="10" ipady="10"/>
             </constraints>
             <properties>
+              <focusPainted value="false"/>
               <font size="14"/>
               <text value="返回"/>
             </properties>
@@ -138,6 +140,7 @@
               <gridbag top="10" left="10" bottom="20" right="10" weightx="0.0" weighty="0.0" ipadx="10" ipady="10"/>
             </constraints>
             <properties>
+              <focusPainted value="false"/>
               <font size="14"/>
               <text value="创建"/>
             </properties>
@@ -162,7 +165,7 @@
           </vspacer>
         </children>
       </grid>
-      <grid id="3cf17" binding="enterPanel" layout-manager="GridBagLayout">
+      <grid id="3cf17" layout-manager="GridBagLayout">
         <constraints>
           <card name="Card3"/>
         </constraints>
@@ -215,7 +218,7 @@
               <gridbag top="10" left="0" bottom="10" right="10" weightx="0.3" weighty="0.0" ipadx="10" ipady="10"/>
             </constraints>
             <properties>
-              <font name="Consolas" size="16"/>
+              <font size="16"/>
             </properties>
           </component>
           <hspacer id="cd2fb">
@@ -230,6 +233,7 @@
               <gridbag top="10" left="10" bottom="20" right="10" weightx="0.0" weighty="0.0" ipadx="10" ipady="10"/>
             </constraints>
             <properties>
+              <focusPainted value="false"/>
               <font size="14"/>
               <text value="加入"/>
             </properties>
@@ -240,6 +244,7 @@
               <gridbag top="10" left="10" bottom="20" right="10" weightx="0.0" weighty="0.0" ipadx="10" ipady="10"/>
             </constraints>
             <properties>
+              <focusPainted value="false"/>
               <font size="14"/>
               <text value="返回"/>
             </properties>
@@ -266,13 +271,13 @@
               <gridbag top="10" left="0" bottom="10" right="10" weightx="0.3" weighty="0.0" ipadx="10" ipady="10"/>
             </constraints>
             <properties>
-              <font name="Consolas" size="16"/>
+              <font size="16"/>
               <text value="localhost"/>
             </properties>
           </component>
         </children>
       </grid>
-      <grid id="f3dae" binding="waitPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
+      <grid id="f3dae" layout-manager="BorderLayout" hgap="0" vgap="0">
         <constraints>
           <card name="Card4"/>
         </constraints>
@@ -290,7 +295,7 @@
             <constraints border-constraint="Center"/>
             <properties>
               <editable value="false"/>
-              <font size="16"/>
+              <font size="20"/>
               <lineWrap value="true"/>
             </properties>
           </component>

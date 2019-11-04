@@ -3,6 +3,7 @@ package com.swh.server;
 import com.swh.client.MathExpException;
 import com.swh.client.MyCalculator;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class Cards {
@@ -12,14 +13,50 @@ public class Cards {
 
     enum types {spade, heart, club, diamond}
 
+    static class Card {
+        private int value;
+        private types type;
+
+        Card(int value, types type) {
+            this.value = value;
+            this.type = type;
+        }
+
+        String getFullName() {
+            String name = null;
+            switch (type) {
+                case club: name = "club_"; break;
+                case heart: name = "heart_"; break;
+                case spade: name = "spade_"; break;
+                case diamond: name = "diamond_"; break;
+            }
+            switch (value) {
+                case 1: name += "A"; break;
+                case 11: name += "J"; break;
+                case 12: name += "Q"; break;
+                case 13: name += "K"; break;
+                default: name += String.valueOf(value); break;
+            }
+            return name;
+        }
+
+    }
+
     /**
      * 生成一副打乱的卡牌对象
      * */
     Cards() {
-        List cards = Arrays.asList("A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K",
-                "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K",
-                "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K",
-                "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K");
+//        List cards = Arrays.asList("A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K",
+//                "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K",
+//                "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K",
+//                "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K");
+        ArrayList<Card> cards = new ArrayList<>(52);
+        for (int i = 1; i <= 13; i++) {
+            for (types t : types.values()) {
+                cards.add(new Card(i, t));
+            }
+        }
+
         Collections.shuffle(cards);
         cardIterator = cards.iterator();
     }
@@ -32,7 +69,7 @@ public class Cards {
             return null;
         String[] group = new String[4];
         for(int i = 0; i < 4; i++)
-            group[i] = (String) cardIterator.next();
+            group[i] = ((Card) cardIterator.next()).getFullName();
         return group;
     }
 

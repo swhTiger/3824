@@ -34,7 +34,7 @@ class Player {
 
     Player(Socket socket) throws IOException {
         this.printWriter = new PrintWriter(socket.getOutputStream(), true);
-        this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
+        this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         this.name = bufferedReader.readLine();
         score = 0;
     }
