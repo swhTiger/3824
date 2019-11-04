@@ -8,6 +8,10 @@ import java.util.*;
 public class Cards {
     private Iterator cardIterator;
 
+    //private static String[] types = {""}
+
+    enum types {spade, heart, club, diamond}
+
     /**
      * 生成一副打乱的卡牌对象
      * */
