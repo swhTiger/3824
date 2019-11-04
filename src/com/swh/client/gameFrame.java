@@ -92,7 +92,7 @@ public class gameFrame {
         timerThread.start();
     }
 
-    void distroy() {
+    void destroy() {
         frame.dispose();
     }
 

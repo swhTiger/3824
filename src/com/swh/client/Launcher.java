@@ -106,7 +106,7 @@ public class Launcher {
                 e.printStackTrace();
             }
         }
-        gameFrame.distroy();
+        gameFrame.destroy();
         frame.setVisible(true);
         frame.setTitle(player.getName());
         ((CardLayout) rootPanel.getLayout()).show(rootPanel, "Card1");
