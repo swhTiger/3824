@@ -9,8 +9,6 @@ import java.util.*;
 public class Cards {
     private Iterator cardIterator;
 
-    //private static String[] types = {""}
-
     enum types {spade, heart, club, diamond}
 
     static class Card {
@@ -46,17 +44,12 @@ public class Cards {
      * 生成一副打乱的卡牌对象
      * */
     Cards() {
-//        List cards = Arrays.asList("A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K",
-//                "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K",
-//                "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K",
-//                "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K");
         ArrayList<Card> cards = new ArrayList<>(52);
         for (int i = 1; i <= 13; i++) {
             for (types t : types.values()) {
                 cards.add(new Card(i, t));
             }
         }
-
         Collections.shuffle(cards);
         cardIterator = cards.iterator();
     }
@@ -108,7 +101,8 @@ public class Cards {
         //将中文括号转换为英文括号，增大容错率
         answer = answer.replace("（","(");
         answer = answer.replace("）",")");
-        if (!isConformToRules(answer, group)) return false;    //检查是否符合规则
+        if (!isConformToRules(answer, group))
+            return false;    //检查是否符合规则
         try {
             int result = (int) MyCalculator.convert(answer);    //计算答案
             if (result == 24) return true;
@@ -125,9 +119,9 @@ public class Cards {
      * @param group : 转换为数字后的卡牌
      * */
     private static boolean isConformToRules(String answer, String[] group) {
-        /* 将“1”全部放到后面去，以免在后面删除“1”时将“1x”的1删掉 */
+        /* 将group按数字大小排序 */
         Arrays.sort(group, (o1, o2) -> {
-            if (!o1.equals("1") && o2.equals("1")) return -1;
+            if (Integer.parseInt(o1) > Integer.parseInt(o2)) return -1;
             return 0;
         });
         /* 依次将字符中应该使用的数字删掉，方便后面检查 */

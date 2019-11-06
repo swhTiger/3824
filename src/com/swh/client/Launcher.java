@@ -107,7 +107,6 @@ public class Launcher {
         frame.setTitle("24点牌戏"+"  "+player.getName());
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-        frame.setTitle(player.getName());
         ((CardLayout) rootPanel.getLayout()).show(rootPanel, "Card1");
 
     }
