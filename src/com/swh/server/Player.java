@@ -34,7 +34,7 @@ class Player {
 
     Player(Socket socket) throws IOException {
         this.printWriter = new PrintWriter(socket.getOutputStream(), true);
-        this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
         this.name = bufferedReader.readLine();
         score = 0;
     }
@@ -47,7 +47,7 @@ class Player {
      * 从服务端发送消息给客户端
      * */
     void send(String msg) {
-        printWriter.println(msg);
+        printWriter.println(new String(msg.getBytes(StandardCharsets.UTF_8), StandardCharsets.UTF_8));
     }
 
     /**
