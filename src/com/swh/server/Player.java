@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.nio.charset.StandardCharsets;
 
 /**
  * 服务器的Player对象，负责与客户端的连接、通信和玩家信息记录
@@ -34,7 +33,7 @@ class Player {
 
     Player(Socket socket) throws IOException {
         this.printWriter = new PrintWriter(socket.getOutputStream(), true);
-        this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
+        this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         this.name = bufferedReader.readLine();
         score = 0;
     }
@@ -47,7 +46,7 @@ class Player {
      * 从服务端发送消息给客户端
      * */
     void send(String msg) {
-        printWriter.println(new String(msg.getBytes(StandardCharsets.UTF_8), StandardCharsets.UTF_8));
+        printWriter.println(msg);
     }
 
     /**

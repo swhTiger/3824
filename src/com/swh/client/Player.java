@@ -1,9 +1,6 @@
 package com.swh.client;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 
@@ -56,11 +53,11 @@ class Player {
 
     /*给服务器发送消息*/
     void send(String s) {
-        printWriter.println(new String(s.getBytes(StandardCharsets.UTF_8), StandardCharsets.UTF_8));
+        printWriter.println(new String(s.getBytes(StandardCharsets.UTF_8)));
     }
 
     /*接收服务器发来的消息， 会阻塞*/
     String read() throws IOException {
-        return bufferedReader.readLine();
+            return bufferedReader.readLine();
     }
 }
